@@ -1,3 +1,9 @@
 h1 {
   color: blue;
 }
+
+body {
+  background-color: #f4f9f4; /* Màu nền xanh lá cây cực kỳ nhạt, tạo cảm giác dịu mắt cho bảo tàng */
+  color: #2b2b2b;            /* Màu chữ xám đen đậm, giúp người đọc đỡ mỏi mắt hơn màu đen tuyền */
+  font-family: sans-serif;   /* Đổi phông chữ sang kiểu hiện đại, không có chân giống như các trang báo lớn */
+}
