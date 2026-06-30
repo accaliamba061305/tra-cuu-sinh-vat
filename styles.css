@@ -1,6 +1,18 @@
-/* styles.css - Professional styling for Website tra cứu sinh vật */
+/* ==========================================================================
+   1. Khởi tạo & Cấu hình chung (Reset & Base Styles)
+   ========================================================================== */
+:root {
+    --primary-color: #2e7d32;       /* Xanh lá chủ đạo (Forest Green) */
+    --primary-hover: #1b5e20;       /* Xanh lá đậm khi hover */
+    --accent-color: #81c784;        /* Xanh lá nhạt làm điểm nhấn */
+    --bg-light: #f4f7f4;            /* Màu nền xám nhẹ pha chút xanh */
+    --text-color: #2c3e50;          /* Màu chữ chính (Xám đen nhẹ, dễ đọc hơn màu đen tuyền) */
+    --text-muted: #7f8c8d;          /* Màu chữ phụ */
+    --white: #ffffff;
+    --dark-footer: #1a1a1a;         /* Màu đen chuẩn cho footer */
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
@@ -8,131 +20,134 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-main);
+    color: var(--text-color);
+    background-color: var(--bg-light);
     line-height: 1.6;
-    color: #333;
-    background-color: #f8f9fa;
 }
 
-/* Typography */
-h1, h2, h3 {
-    font-weight: 700;
-    color: #1a3c34;
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
 }
 
-h1 {
-    font-size: 2.2rem;
+/* Ẩn danh cho các phần tử chỉ dành cho máy đọc màn hình (Screen Reader) */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
-h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    border-bottom: 3px solid #4a7c59;
-    padding-bottom: 0.5rem;
-}
-
-/* Header */
+/* ==========================================================================
+   2. Bố cục Header (Logo, Search, Nav)
+   ========================================================================== */
 header {
-    background: linear-gradient(135deg, #1a3c34 0%, #2e5d4a 100%);
-    color: white;
-    padding: 1.5rem 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 1rem 5%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
 }
 
 .logo-area {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    gap: 1rem;
 }
 
 .logo-img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    height: 60px;
+    width: auto;
+    object-fit: contain;
 }
 
 .introduction h1 {
-    margin-bottom: 0.4rem;
-    font-size: 2.1rem;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    font-weight: 700;
 }
 
 .introduction p {
-    font-size: 1.05rem;
-    opacity: 0.95;
+    font-size: 0.85rem;
+    color: var(--text-muted);
 }
 
-/* Search bar */
+/* Thanh tìm kiếm */
 .search-bar {
     display: flex;
-    max-width: 600px;
-    margin: 1.5rem auto;
-    background: white;
-    border-radius: 50px;
-    overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    flex: 1;
+    max-width: 500px;
+    min-width: 280px;
 }
 
 .search-bar input {
     flex: 1;
-    border: none;
-    padding: 16px 24px;
-    font-size: 1.1rem;
+    padding: 0.6rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    font-family: inherit;
+    font-size: 0.95rem;
     outline: none;
-    color: #333;
+    transition: border-color 0.3s;
+}
+
+.search-bar input:focus {
+    border-color: var(--primary-color);
 }
 
 .search-bar button {
-    background: #4a7c59;
-    color: white;
+    padding: 0.6rem 1.5rem;
+    background-color: var(--primary-color);
+    color: var(--white);
     border: none;
-    padding: 0 32px;
-    font-size: 1.1rem;
+    border-radius: 0 4px 4px 0;
+    font-family: inherit;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s;
 }
 
 .search-bar button:hover {
-    background: #3a6648;
+    background-color: var(--primary-hover);
 }
 
-/* Navigation */
+/* Thanh điều hướng */
 .nav-bar {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    padding-top: 0.8rem;
+    gap: 1.5rem;
+    font-weight: 600;
 }
 
 .nav-bar a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    color: var(--text-color);
     position: relative;
+    padding: 0.3rem 0;
 }
 
-.nav-bar a:hover {
-    color: #c8e6d3;
+.nav-bar a:hover, .nav-bar a[href="index.html"] {
+    color: var(--primary-color);
 }
 
+/* Hiệu ứng gạch chân khi hover cho các link điều hướng */
 .nav-bar a::after {
     content: '';
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: -4px;
+    bottom: 0;
     left: 0;
-    background-color: #c8e6d3;
+    background-color: var(--primary-color);
     transition: width 0.3s ease;
 }
 
@@ -141,43 +156,50 @@ header {
 }
 
 .nav-bar label {
-    color: white;
-    margin-right: 0.5rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-left: 0.5rem;
 }
 
 .nav-bar select {
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: none;
-    background: rgba(255,255,255,0.95);
-    color: #1a3c34;
-    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
 }
 
-/* Main layout */
+/* ==========================================================================
+   3. Khu vực Nội dung chính (Main & Sidebar)
+   ========================================================================== */
 main {
-    display: flex;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 2rem auto;
-    padding: 0 2rem;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 280px 1fr;
     gap: 2rem;
+    min-height: 60vh; /* Giữ footer luôn ở dưới nếu ít nội dung */
 }
 
+/* Sidebar bên trái */
 .sidebar {
-    width: 260px;
-    background: white;
-    padding: 1.8rem;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     height: fit-content;
-    position: sticky;
-    top: 120px;
 }
 
 .sidebar h2 {
-    color: #1a3c34;
-    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--bg-light);
+    padding-bottom: 0.5rem;
 }
 
 .sidebar ul {
@@ -185,78 +207,100 @@ main {
 }
 
 .sidebar li {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.5rem;
 }
 
 .sidebar a {
     display: block;
-    padding: 12px 16px;
-    color: #444;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    padding: 0.6rem 0.8rem;
+    border-radius: 4px;
     font-weight: 500;
 }
 
 .sidebar a:hover {
-    background: #e8f0eb;
-    color: #1a3c34;
-    transform: translateX(8px);
-    box-shadow: 0 3px 8px rgba(74, 124, 89, 0.15);
+    background-color: var(--bg-light);
+    color: var(--primary-color);
+    padding-left: 1.2rem; /* Hiệu ứng đẩy nhẹ sang phải khi di chuột */
 }
 
-/* Main content */
+/* Nội dung chính bên phải */
 .main-content {
-    flex: 1;
-    background: white;
+    background-color: var(--white);
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    min-height: 600px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
-/* Footer */
+.main-content h2 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+/* Đường gạch dưới tiêu đề chính */
+.main-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+/* ==========================================================================
+   4. Footer màu đen chuyên nghiệp
+   ========================================================================== */
 footer {
-    background: #1a3c34;
-    color: #c8e6d3;
+    background-color: var(--dark-footer);
+    color: #b3b3b3; /* Chữ màu xám sáng trên nền đen để tránh mỏi mắt */
     text-align: center;
-    padding: 2.5rem 1rem;
-    margin-top: 4rem;
+    padding: 2rem 1rem;
+    margin-top: 3rem;
+    font-size: 0.9rem;
 }
 
 footer p {
-    margin-bottom: 0.8rem;
-    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
 }
 
 footer address {
     font-style: normal;
-    opacity: 0.9;
+    color: #8c8c8c;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-    main { flex-direction: column; }
-    .sidebar { width: 100%; position: static; }
+footer strong {
+    color: var(--accent-color); /* Làm nổi bật tên tác giả */
 }
 
+/* ==========================================================================
+   5. Tối ưu giao diện Responsive (Mobile & Tablet)
+   ========================================================================== */
 @media (max-width: 768px) {
-    header { padding: 1.2rem 1rem; }
-    .logo-area { flex-direction: column; text-align: center; }
-    .nav-bar { flex-direction: column; gap: 1rem; }
-}
+    header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.5rem 1rem;
+    }
 
-@media (max-width: 480px) {
-    .search-bar input { padding: 14px 18px; }
-}
+    .logo-area {
+        justify-content: center;
+    }
 
-/* Accessibility & polish */
-input:focus, select:focus, button:focus {
-    outline: 3px solid #4a7c59;
-    outline-offset: 2px;
-}
+    .search-bar {
+        max-width: 100%;
+    }
 
-.logo-img:hover {
-    transform: scale(1.08) rotate(3deg);
-    transition: transform 0.4s ease;
+    .nav-bar {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    main {
+        grid-template-columns: 1fr; /* Chuyển thành 1 cột trên điện thoại */
+        gap: 1.5rem;
+    }
 }
