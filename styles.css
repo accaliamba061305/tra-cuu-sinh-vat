@@ -304,3 +304,13 @@ footer strong {
         gap: 1.5rem;
     }
 }
+
+/* Loại bỏ gạch chân và giữ nguyên màu sắc gốc của tiêu đề khi biến thành link */
+.logo-link, 
+.introduction h1 a {
+    text-decoration: none;
+    color: inherit; /* Tự động lấy lại màu xanh lá của h1 đã cấu hình trước đó */
+    display: flex;  /* Giúp căn chỉnh ảnh và chữ mượt mà nếu dùng Cách 1 */
+    align-items: center;
+    gap: 1rem;
+}
