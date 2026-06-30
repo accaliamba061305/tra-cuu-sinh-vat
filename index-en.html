@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <title>Organism Search Website</title>
+
+        <meta name="description" content="This is a website for looking up organisms." />
+        <meta name="keywords" content="search, organism, animals, plants, wildlife" />
+        <meta name="author" content="Đào Hải Long" />
+        <meta name="robots" content="index, follow" />
+
+        <link rel="icon" type="image/png" href="bao-tang-thien-nhien.png" />
+
+        <meta property="og:title" content="Organism Search Website" />
+        <meta property="og:description" content="This is a website for looking up organisms." />
+        <meta property="og:site_name" content="Organism Search Website" />
+        <meta property="og:image" content="bao-tang-thien-nhien.png" />
+        
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Organism Search Website" />
+        <meta name="twitter:description" content="This is a website for looking up organisms." />
+        <meta name="twitter:image" content="bao-tang-thien-nhien.png" />
+
+        <link rel="stylesheet" href="styles.css" />
+        <script src="script.js" defer></script>
+    </head>
+
+    <body>
+        <header>
+
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <img src="bao-tang-thien-nhien.png" alt="Logo of the Vietnam National Museum of Nature" class="logo-img" />
+
+                    <div class="introduction">
+                        <h1>Organism Search Website</h1>
+                        <p>This website is used to look up various organisms.</p>
+                    </div>
+                </a>
+            </div>
+
+            <form class="search-bar">
+
+                <label class="visually-hidden" for="search">Search organisms</label>
+
+                <input id="search" name="search" type="search" placeholder="Enter the organism you want to find..." />
+
+                <button type="submit">Search</button>
+
+            </form>
+
+            <nav class="nav-bar">
+
+                <a href="index.html">Home</a>
+                <a href="#">About Us</a>
+                <a href="#">Contact</a>
+
+                <label for="language">Language</label>
+
+                <select id="language" name="language">
+                    <option value="vi">Tiếng Việt</option>
+                    <option value="en" selected>English</option>
+                </select>
+
+            </nav>
+
+        </header>
+
+        <main>
+            <aside class="sidebar">
+                <h2>Organism Categories</h2>
+                <nav>
+                  <ul>
+                    <li><a href="#">Animals</a></li>
+                    <li><a href="#">Plants</a></li>
+                    <li><a href="#">Fungi</a></li>
+                    <li><a href="#">Geological Specimens</a></li>
+                  </ul>
+                </nav>
+            </aside>
+
+            <section class="main-content">
+                <h2>Featured Organisms</h2>
+            </section>
+        </main>
+
+        <footer>
+          <p>© 2026 Vietnam National Museum of Nature.</p>
+
+          <address>
+            Created by: <strong>Đào Hải Long</strong>
+          </address>
+        </footer>
+
+    </body>
+</html>
