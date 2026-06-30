@@ -30,53 +30,67 @@
 
     <body>
         <header>
-          <div class="logo-area">
-            <img src="bao-tang-thien-nhien.png" alt="logo bảo tàng" class="logo-img" />
-            <div class="introduction">
-              <h1>Website tra cứu sinh vật</h1>
-              <h2>Đây là trang web dùng để tra cứu các sinh vật.</h2>
+
+            <div class="logo-area">
+                <img src="bao-tang-thien-nhien.png" alt="Logo Bảo tàng Thiên nhiên Việt Nam" class="logo-img" />
+
+                <div class="introduction">
+                    <h1>Website tra cứu sinh vật</h1>
+                    <p>Đây là trang web dùng để tra cứu các sinh vật.</p>
+                </div>
             </div>
-          </div>
 
-          <div class="search-bar">
-            <input type="text" placeholder="Nhập sinh vật bạn muốn tìm..." />
-            <button type="button">Tìm kiếm</button>
-          </div>
+            <form class="search-bar">
 
-          <div class="language">
-            <label for="language">Ngôn ngữ</label>
-            <select id="language" name="language">
-              <option value="vietnamese">Vi</option>
-              <option value="english">En</option>
-            </select>
-          </div>
+                <label class="visually-hidden" for="search">Tìm kiếm sinh vật</label>
 
-          <nav class="nav-bar">
-            <a href="index.html">Trang chủ</a>
-            <a href="#">Giới thiệu</a>
-            <a href="#">Liên hệ</a>
-          </nav>
+                <input id="search" name="search" type="search" placeholder="Nhập sinh vật bạn muốn tìm..." />
+
+                <button type="submit">Tìm kiếm</button>
+
+            </form>
+
+            <nav class="nav-bar">
+
+                <a href="index.html">Trang chủ</a>
+                <a href="#">Giới thiệu</a>
+                <a href="#">Liên hệ</a>
+
+                <label for="language">Ngôn ngữ</label>
+
+                <select id="language" name="language">
+                    <option value="vi">Tiếng Việt</option>
+                    <option value="en">English</option>
+                </select>
+
+            </nav>
+
         </header>
 
         <main>
             <aside class="sidebar">
                 <h2>Các đầu mục sinh vật</h2>
-                <ul>
+                <nav>
+                  <ul>
                     <li><a href="#">Động vật</a></li>
                     <li><a href="#">Thực vật</a></li>
                     <li><a href="#">Nấm</a></li>
                     <li><a href="#">Mẫu vật địa chất</a></li>
-                </ul>
+                  </ul>
+                </nav>
             </aside>
 
             <section class="main-content">
-                <h3>Các loài sinh vật nổi bật</h3>
+                <h2>Các loài sinh vật nổi bật</h2>
             </section>
         </main>
 
         <footer>
           <p>© 2026 Bảo tàng Thiên nhiên Việt Nam.</p>
-          <p>Tạo bởi: <strong>Đào Hải Long</strong></p>
+
+          <address>
+            Tạo bởi: <strong>Đào Hải Long</strong>
+          </address>
         </footer>
 
     </body>
