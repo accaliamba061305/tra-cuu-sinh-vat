@@ -1,0 +1,52 @@
+Ý tưởng: xây dựng một website tra cứu sinh vật (trước mắt là ở việt nam) song ngữ gồm tiếng anh và tiếng việt.
+Mục tiêu là trước mắt làm final project cho cs50, sau này có thể tặng bảo tàng và có thể hoạt động như một trang web đích thực
+Sử dụng html, css, js, python (flask) và SQL
+Mục đích làm trang web này: Nếu nó có thể sử dụng cho du khách, thì nó cần một giao diện thân thiện, gợi cảm xúc
+mong muốn tìm hiểu và đặc biệt phải dễ hiểu
+- Cái này tôi làm với mục đích là phục vụ final project của cs50 và tăng kiến thức của mình.
+
+Tôi muốn website mình vận hành như sau: đầu tiên, khi họ vào trang chủ, họ có thể tìm kiếm được con vật mà họ muốn tìm.
+Nếu họ bí ý tưởng, trên chính trang web đó sẽ hiện lên những con động vật nổi bật (thực ra là random thôi)
+Với chữ bạn có biết? thật lớn và phần thông tin chính là phần thông tin tóm tắt được ... khi họ nhấn vào thì hiện lên
+thông tin hoàn chỉnh về chính sinh vật đó. Vì không quá kì vọng vào dự án này và đa phần là tập trung về mặt kỹ năng
+lập trình, thông tin ở đây chỉ là những summary ngắn gọn và dễ hiểu. đương nhiên nó sẽ có tiềm năng mở rộng sau.
+
+Trên thanh top bar, nó sẽ bao gồm trang chủ, giới thiệu, ngôn ngữ, phần tìm kiếm, và cái logo cũng như header của trang web
+Cũng sẽ có side bar là các đầu mục sinh vật. VD: động vật, thực vật, nấm, mẫu hóa thạch.... và khi visit các trang như vậy,
+các hộp thông tin chứa hình ảnh sinh vật sẽ đồng loạt xuất hiện và cho người dùng lựa chọn. Nhưng đa phần là sử
+dụng thanh tìm kiếm thôi.
+
+Chúng ta sẽ bắt đầu với database trước:
+- Vì ngôn ngữ của chúng ta là cả tiếng anh lẫn tiếng việt, nên chúng ta cần một database có thể phục vụ điều đó
+Database:
+
+tôi nghĩ chúng ta cần ba bảng. Một bảng là lưu data báo với database là chúng ta có con vật như thế này.
+và nó có ID và tên khoa học như này. Bảng thứ hai là bảng translation. Nó sẽ có hai ngôn ngữ. Một con vật sẽ
+có hai dòng trong cái bảng này. Và bên tiếng việt có gì thì bên tiếng anh cũng có. Bảng thứ ba là hình ảnh thì
+không nói làm gì. chắc bạn cũng hiểu nó sẽ trông như nào. Tôi còn một cái ý tưởng tuyệt vời hơn.
+Chúng ta chỉ cần tạo một con vật trên SQL thôi. sau đó, tôi sẽ kết nối việc thêm thông tin trong SQL trên
+giao diện web. Tuy nhiên, để đảm bảo an toàn cho trang web cũng như cơ sở dữ liệu, tôi sẽ dùng javascript để bắt họ
+nhập mật khẩu trước khi thêm động vật.
+
+bảng 1:
+id
+scientific name
+domain, kingdom, phylum, class, order, family, genus
+
+bảng 2:
+id
+creature_id
+language
+species
+quick summary
+
+bảng 3:
+id
+creature_id
+photo
+author
+license
+source
+alt_text
+
+Tôi đã tạo database xong. giờ chúng ta sẽ tới flask python. yay, cố lên qua flask thì chỉ còn html, css, và js.

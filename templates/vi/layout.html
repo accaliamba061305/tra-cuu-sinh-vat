@@ -5,35 +5,41 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta  http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <title>Website tra cứu sinh vật</title>
+        <title>
+            {% block title %}
+            Website tra cứu sinh vật
+            {% endblock %}
+        </title>
 
         <meta name="description" content="Đây là trang web tra cứu sinh vật" />
         <meta name="keywords" content="tra cứu, sinh vật, động vật, thú" />
         <meta name="author" content="Đào Hải Long" />
         <meta name="robots" content="index, follow" />
 
-        <link rel="icon" type="image/png" href="bao-tang-thien-nhien.png" />
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='bao-tang-thien-nhien.png')}}" />
 
-        <meta property="og:title" content="Website tra cứu sinh vật" />
-        <meta property="og:description" content="Website dùng để tra cứu sinh vật" />
+        <meta property="og:title" content="{{ title }}" />
+        <meta property="og:description" content="{{ description }}" />
         <meta property="og:site_name" content="Website tra cứu sinh vật" />
         <meta property="og:image" content="bao-tang-thien-nhien.png" />
-        
+        <meta property="og:url" content="{{ request.url }}">
+        <meta property="og:type" content="article">
+
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Website tra cứu sinh vật" />
-        <meta name="twitter:description" content="Website dùng để tra cứu sinh vật" />
+        <meta name="twitter:title" content="{{ title }}" />
+        <meta name="twitter:description" content="{{ description }}" />
         <meta name="twitter:image" content="bao-tang-thien-nhien.png" />
 
-        <link rel="stylesheet" href="styles.css" />
-        <script src="script.js" defer></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+        <script src="{{ url_for('static', filename='script.js') }}" defer></script>
     </head>
 
     <body>
         <header>
 
             <div class="logo-area">
-                <a href="index.html" class="logo-link">
-                    <img src="bao-tang-thien-nhien.png" alt="Logo Bảo tàng Thiên nhiên Việt Nam" class="logo-img" />
+                <a href="{{ url_for('index') }}" class="logo-link">
+                    <img src="{{ url_for('static', filename='bao-tang-thien-nhien.png') }}" alt="Logo Bảo tàng Thiên nhiên Việt Nam" class="logo-img" />
 
                     <div class="introduction">
                         <h1>Website tra cứu sinh vật</h1>
@@ -54,9 +60,9 @@
 
             <nav class="nav-bar">
 
-                <a href="index.html">Trang chủ</a>
-                <a href="#">Giới thiệu</a>
-                <a href="#">Liên hệ</a>
+                <a href="{{ url_for('index') }}">Trang chủ</a>
+                <a href="{{ url_for('gioi-thieu') }}">Giới thiệu</a>
+                <a href="{{ url_for('lien-he') }}">Liên hệ</a>
 
                 <label for="language">Ngôn ngữ</label>
 
@@ -82,9 +88,8 @@
                 </nav>
             </aside>
 
-            <section class="main-content">
-                <h2>Các loài sinh vật nổi bật</h2>
-            </section>
+            {% block main %}
+            {% endblock %}
         </main>
 
         <footer>
