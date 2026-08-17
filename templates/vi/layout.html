@@ -48,7 +48,7 @@
                 </a>
             </div>
 
-            <form class="search-bar">
+            <form class="search-bar" action="{{ url_for('search') }}" method="GET">
 
                 <label class="visually-hidden" for="search">Tìm kiếm sinh vật</label>
 
@@ -61,8 +61,8 @@
             <nav class="nav-bar">
 
                 <a href="{{ url_for('index') }}">Trang chủ</a>
-                <a href="{{ url_for('gioi-thieu') }}">Giới thiệu</a>
-                <a href="{{ url_for('lien-he') }}">Liên hệ</a>
+                <a href="{{ url_for('gioi_thieu') }}">Giới thiệu</a>
+                <a href="{{ url_for('lien_he') }}">Liên hệ</a>
 
                 <label for="language">Ngôn ngữ</label>
 

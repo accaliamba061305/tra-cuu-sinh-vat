@@ -1,0 +1,34 @@
+{% extends 'en/layout2.html' %}
+
+{% block title %}
+    Search {{ species }}
+{% endblock %}
+
+
+{% block main %}
+    <section class="main-content">
+        <div class="header">
+            <h2>{{ species }}</h2>
+            <p>Scientific name: <i>{{ scientific_name }}</i></p>
+        </div>
+
+        <div class="photo">
+            <!-- chịu -->
+        </div>
+
+        <div class="taxonomy">
+            <p>Domain: {{ taxonomic_domain }}</p>
+            <p>Kingdom: {{ taxonomic_kingdom }}</p>
+            <p>Phylum: {{ taxonomic_phylum }}</p>
+            <p>Class: {{ taxonomic_class }}</p>
+            <p>Order: {{ taxonomic_order }}</p>
+            <p>Family: {{ taxonomic_family }}</p>
+            <p>Genus: {{ taxonomic_genus }}</p>
+        </div>
+
+        <div class="quick_summary">
+            <p>{{ quick_summary }}</p>
+        </div>
+
+    </section>
+{% endblock %}

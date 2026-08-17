@@ -1,0 +1,35 @@
+{% extends 'vi/layout.html' %}
+
+{% block title %}
+    Tra cứu {{ species }}
+{% endblock %}
+
+
+{% block main %}
+    <section class="main-content">
+        <div class="header">
+            <h2>{{ species }}</h2>
+            <p>Tên khoa học: <i>{{ scientific_name }}</i></p>
+            <!-- tôi đang không biết cho taxonomy vào đâu -->
+        </div>
+
+        <div class="photo">
+            <!-- chịu -->
+        </div>
+
+        <div class="taxonomy">
+            <p>Vực: {{ taxonomic_domain }}</p>
+            <p>Giới: {{ taxonomic_kingdom }}</p>
+            <p>Ngành: {{ taxonomic_phylum }}</p>
+            <p>Lớp: {{ taxonomic_class }}</p>
+            <p>Bộ: {{ taxonomic_order }}</p>
+            <p>Họ: {{ taxonomic_family }}</p>
+            <p>Chi: {{ taxonomic_genus }}</p>
+        </div>
+
+        <div class="quick_summary">
+            <p>{{ quick_summary }}</p>
+        </div>
+
+    </section>
+{% endblock %}

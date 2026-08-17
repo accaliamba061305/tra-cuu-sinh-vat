@@ -1,0 +1,81 @@
+{% extends 'vi/layout.html' %}
+
+{% block title %}
+    Thêm sinh vật
+{% endblock %}
+
+
+{% block main %}
+    <section class="main-content">
+        <div class="header">
+            <h2>Trang thêm sinh vật</h2>
+            <p>Trang này dành riêng cho những người có thẩm quyền để thêm sinh vật làm giàu cho trang web</p>
+        </div>
+
+        <div class="content">
+            <h3>Hãy điền thông tin về sinh vật bạn muốn thêm</h3>
+            
+            <form class="new-creature" method="POST">
+                <h4>Thông tin chung (tiếng Việt)</h4>
+
+                <label for="species_vi">Tên sinh vật</label>
+                <input id="species_vi" name="species" type="text" required />
+                <br />
+
+                <label for="quick_summary_vi">Mô tả ngắn</label><br />
+                <textarea rows="6" cols="20" id="quick_summary_vi" name="quick_summary" required></textarea>
+                <br />
+
+                
+                <h4>Thông tin chung (LƯU Ý: GHI BẰNG TIẾNG ANH)</h4>
+                
+                <label for="species_en">Species' name: </label>
+                <input id="species_en" name="species" type="text" required />
+                <br />
+
+                <label for="quick_summary_en">Quick_summary: </label><br />
+                <textarea rows="6" cols="20" id="quick_summary_en" name="quick_summary" required></textarea>
+                <br />
+
+
+                <h4>Thông tin phân loại</h4>
+                <p>Vui lòng ghi tên khoa học tiếng Anh</p>
+
+                <label for="scientific_name">Tên khoa học: </label>
+                <input id="scientific_name" name="scientific_name" type="text" required />
+                <br />
+
+                <label for="taxonomic_domain">Vực: </label>
+                <input id="taxonomic_domain" name="taxonomic_domain" type="text" required />
+                </br>
+
+                <label for="taxonomic_kingdom">Giới: </label>
+                <input id="taxonomic_kingdom" name="taxonomic_kingdom" type="text" required />
+                <br />
+
+                <label for="taxonomic_phylum">Ngành: </label>
+                <input id="taxonomic_phylum" name="taxonomic_phylum" type="text" required />
+                <br />
+            
+                <label for="taxonomic_class">Lớp: </label>
+                <input id="taxonomic_class" name="taxonomic_class" type="text" required />
+                <br />
+
+                <label for="taxonomic_order">Bộ: </label>
+                <input id="taxonomic_order" name="taxonomic_order" type="text" required />
+                <br />
+
+                <label for="taxonomic_family">Họ: </label>
+                <input id="taxonomic_family" name="taxonomic_family" type="text" required />
+                <br />
+                
+                <label for="taxonomic_genus">Chi: </label>
+                <input id="taxonomic_genus" name="taxonomic_genus" type="text" required />
+                <br />
+
+
+                <button type="submit">Thêm sinh vật</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}
