@@ -15,31 +15,45 @@
         <div class="content">
             <h3>Hãy điền thông tin về sinh vật bạn muốn thêm</h3>
             
-            <form class="new-creature" method="POST">
+            <form class="new-creature" method="POST" enctype="multipart/form-data">
                 <h4>Thông tin chung (tiếng Việt)</h4>
 
                 <label for="species_vi">Tên sinh vật</label>
-                <input id="species_vi" name="species" type="text" required />
+                <input id="species_vi" name="species_vi" type="text" required />
                 <br />
 
                 <label for="quick_summary_vi">Mô tả ngắn</label><br />
-                <textarea rows="6" cols="20" id="quick_summary_vi" name="quick_summary" required></textarea>
+                <textarea rows="6" cols="20" id="quick_summary_vi" name="quick_summary_vi" required></textarea>
                 <br />
 
                 
                 <h4>Thông tin chung (LƯU Ý: GHI BẰNG TIẾNG ANH)</h4>
                 
                 <label for="species_en">Species' name: </label>
-                <input id="species_en" name="species" type="text" required />
+                <input id="species_en" name="species_en" type="text" required />
                 <br />
 
                 <label for="quick_summary_en">Quick_summary: </label><br />
-                <textarea rows="6" cols="20" id="quick_summary_en" name="quick_summary" required></textarea>
+                <textarea rows="6" cols="20" id="quick_summary_en" name="quick_summary_en" required></textarea>
                 <br />
 
 
                 <h4>Thông tin phân loại</h4>
                 <p>Vui lòng ghi tên khoa học tiếng Anh</p>
+
+                <label for="category">Loại sinh vật: </label>
+                <select id="category" name="category" required>
+                    <option value="animal">Động vật</option>
+                    <option value="plant">Thực vật</option>
+                    <option value="fungus">Nấm</option>
+                    <option value="insects">Côn trùng</option>
+                </select>
+
+                <label for="era">Thời kì: </label>
+                <select id="era" name="era" required>
+                    <option value="modern">Hiện đại</option>
+                    <option value="ancient">Cổ đại</option>
+                </select>
 
                 <label for="scientific_name">Tên khoa học: </label>
                 <input id="scientific_name" name="scientific_name" type="text" required />
@@ -47,7 +61,7 @@
 
                 <label for="taxonomic_domain">Vực: </label>
                 <input id="taxonomic_domain" name="taxonomic_domain" type="text" required />
-                </br>
+                <br />
 
                 <label for="taxonomic_kingdom">Giới: </label>
                 <input id="taxonomic_kingdom" name="taxonomic_kingdom" type="text" required />
@@ -73,6 +87,28 @@
                 <input id="taxonomic_genus" name="taxonomic_genus" type="text" required />
                 <br />
 
+                <label for="upload-img">Chọn ảnh để tải lên: </label>
+                <input id="upload-img" type="file" name="upload-img" accept="image/*" required />
+
+                <h4>Bản quyền hình ảnh</h4>
+                <label for="author">Tác giả: </label>
+                <input id="author" name="author" type="text" required />
+
+                <label for="license">Giấy phép (ví dụ: CC BY 4.0): </label>
+                <input id="license" name="license" type="text" required />
+                <p>Lưu ý: Nếu không rõ, vui lòng ghi "chưa xác minh"</p>
+
+                <label for="source">Nguồn: </label>
+                <input id="source" name="source" type="text" required />
+                <p>Lưu ý: Nếu không rõ nguồn, vui lòng không sử dụng ảnh đó</p>
+
+                <label for="alt-text">Ghi chú cho ảnh (ví dụ: một con bò đang gặm cỏ): </label>
+                <input id="alt-text" name="alt_text" type="text" required />
+
+                <label for="alt-text-en">Ghi chú cho ảnh (LƯU Ý: BẰNG TIẾNG ANH)</label>
+                <input id="alt-text-en" name="alt_text_en" type="text" required />
+
+                
 
                 <button type="submit">Thêm sinh vật</button>
             </form>

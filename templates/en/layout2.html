@@ -38,8 +38,8 @@
         <header>
 
             <div class="logo-area">
-                <a href="{{ url_for('index') }}" class="logo-link">
-                    <img src="{{ url_for('static', filename='bao-tang-thien-nhien.png') }}" alt="Logo of the Vietnam National Museum of Nature" class="logo-img" />
+                <a href="{{ url_for('index_en') }}" class="logo-link">
+                    <img src="{{ url_for('static', filename='images/logo/bao-tang-thien-nhien.png') }}" alt="Logo of the Vietnam National Museum of Nature" class="logo-img" />
 
                     <div class="introduction">
                         <h1>Creature Lookup Website</h1>
@@ -48,7 +48,7 @@
                 </a>
             </div>
 
-            <form class="search-bar">
+            <form class="search-bar" action="{{ url_for('search') }}" method="GET">
 
                 <label class="visually-hidden" for="search">Search for a creature</label>
 
@@ -60,15 +60,15 @@
 
             <nav class="nav-bar">
 
-                <a href="{{ url_for('index-en') }}">Home</a>
-                <a href="{{ url_for('introduction') }}">About</a>
+                <a href="{{ url_for('index_en') }}">Home</a>
+                <a href="{{ url_for('about') }}">About</a>
                 <a href="{{ url_for('contact') }}">Contact</a>
 
                 <label for="language">Language</label>
 
-                <select id="language" name="language">
-                    <option value="vi">Tiếng Việt</option>
-                    <option value="en">English</option>
+                <select id="language" name="language" onchange="window.location.href=this.value">
+                    <option value="{{ url_for('index') }}" {% if language == "vi" %}selected{% endif %}>Tiếng Việt</option>
+                    <option value="{{ url_for('index_en') }}" {% if language == "en" %}selected{% endif %}>English</option>
                 </select>
 
             </nav>
@@ -83,7 +83,7 @@
                     <li><a href="#">Animals</a></li>
                     <li><a href="#">Plants</a></li>
                     <li><a href="#">Fungi</a></li>
-                    <li><a href="#">Geological Specimens</a></li>
+                    <li><a href="#">Insects</a></li>
                   </ul>
                 </nav>
             </aside>

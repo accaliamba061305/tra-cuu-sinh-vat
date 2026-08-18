@@ -1,0 +1,26 @@
+{% extends 'vi/layout.html' %}
+
+{% block title %}
+    Cập nhật thông tin sinh vật
+{% endblock %}
+
+
+{% block main %}
+    <section class="main-content">
+        <h2>Trang sửa đổi dữ liệu sinh vật</h2>
+        <p>Trang này được dùng để cập nhật thông tin của một sinh vật hoặc sửa đổi thông tin khi có sai sót</p>
+            <!-- I made this form just like the search bar in layout.html -->
+            <h3>Nhập sinh vật bạn muốn cập nhật dữ liệu: </h3>
+            <form class="search-bar" action="{{ url_for('search') }}" method="GET">
+
+                <label class="visually-hidden" for="search">Tìm kiếm sinh vật</label>
+
+                <input id="search" name="search" type="search" placeholder="Nhập sinh vật bạn muốn tìm..." />
+
+                <button type="submit">Tìm kiếm</button>
+
+            </form> 
+
+            <!-- Some things some thing.... -->
+    </section>
+{% endblock %}

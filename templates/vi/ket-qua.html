@@ -1,0 +1,58 @@
+{% extends 'vi/layout.html' %}
+
+{% block title %}
+    Kết quả: {{ creature["species"] }}
+{% endblock %}
+
+
+{% block main %}
+    <section class="main-content">
+
+        <div class="header">
+            <h2>{{ creature["species"] }}</h2>
+
+            <p>
+                Tên khoa học:
+                <i>{{ creature["scientific_name"] }}</i>
+            </p>
+
+            <p>
+                Loại sinh vật:
+                <i>{{ creature["category"] }}</i>
+            </p>
+        </div>
+
+
+        <div class="photo">
+            <img
+                src="{{ url_for('static', filename=creature['photo']) }}"
+                alt="{{ creature['alt_text'] }}"
+            />
+
+            <p>
+                Tác giả: {{ creature["author"] }}
+                |
+                Nguồn: {{ creature["source"] }}
+                |
+                Giấy phép: {{ creature["license"] }}
+            </p>
+        </div>
+
+
+        <div class="taxonomy">
+            <p>Vực: {{ creature["taxonomic_domain"] }}</p>
+            <p>Giới: {{ creature["taxonomic_kingdom"] }}</p>
+            <p>Ngành: {{ creature["taxonomic_phylum"] }}</p>
+            <p>Lớp: {{ creature["taxonomic_class"] }}</p>
+            <p>Bộ: {{ creature["taxonomic_order"] }}</p>
+            <p>Họ: {{ creature["taxonomic_family"] }}</p>
+            <p>Chi: {{ creature["taxonomic_genus"] }}</p>
+        </div>
+
+
+        <div class="quick_summary">
+            <p>{{ creature["quick_summary"] }}</p>
+        </div>
+
+    </section>
+{% endblock %}

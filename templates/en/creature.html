@@ -1,0 +1,26 @@
+{% extends 'en/layout2.html' %}
+
+{% block title %}
+    {{ category_name }}
+{% endblock %}
+
+{% block main %}
+    <section class="main-content">
+    <section class="main-content">
+        <h2>{{ category_name }}</h2>
+
+    <select name="era">
+        <option value="modern">Modern</option>
+        <option value="ancient">Ancient</option>
+    </select>
+
+    {% for creature in creatures %}
+        <div class="creature">
+            <h3>{{ creature["species"] }}</h3>
+            <p>{{ creature["quick_summary"] }}</p>
+        </div>
+    {% endfor %}
+        </section>
+    </section>
+
+{% endblock %}

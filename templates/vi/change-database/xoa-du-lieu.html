@@ -1,0 +1,26 @@
+{% extends 'vi/layout.html' %}
+
+{% block title %}
+    Xóa dữ liệu sinh vật
+{% endblock %}
+
+
+{% block main %}vật
+    <section class="main-content">
+        <h2>Trang xóa dữ liệu sinh vật</h2>
+        <p>Trang này được sử dụng để xóa dữ liệu của một sinh vật khi có sai sót nghiêm trọng hoặc thông tin của sinh vật đó hoặc chính sinh vật đó không hề tồn tại</p>
+
+        <h3>Nhập sinh vật bạn muốn cập nhật dữ liệu: </h3>
+        <form class="search-bar" action="{{ url_for('xoa_du_lieu') }}" method="GET">
+
+            <label class="visually-hidden" for="search">Tìm kiếm sinh vật</label>
+
+            <input id="search" name="search" type="search" placeholder="Nhập sinh vật bạn muốn xóa..." />
+
+            <button type="submit">Tìm kiếm</button>
+
+        </form> 
+
+        <!-- Something something...-->
+    </section>
+{% endblock %}

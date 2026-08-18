@@ -1,0 +1,32 @@
+{% extends 'vi/layout.html' %}
+
+{% block title %}
+    Sửa đổi
+{% endblock %}
+
+
+{% block main %}
+    <section class="main-content">
+        <h2>Trang sửa đổi dữ liệu sinh vật</h2>
+        <p>Phải hết sức thận trọng khi chỉnh sửa dữ liệu</p>
+
+        <h3>Bạn muốn làm gì tiếp theo?</h3>
+        <div class="sua-doi">
+            <a href="{{ url_for('them_sinh_vat')}}">
+                <button>Thêm sinh vật</button>
+            </a>
+        </div>
+        
+        <div class="sua-doi">
+            <a href="{{ url_for('cap_nhat_du_lieu')}}">
+                <button>Sửa đổi thông tin của sinh vật</button>
+            </a>
+        </div>
+
+        <div class="sua-doi">
+            <a href="{{ url_for('xoa_du_lieu')}}">
+                <button>Xóa dữ liệu của sinh vật</button>
+            </a>
+        </div>
+    </section>
+{% endblock %}

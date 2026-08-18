@@ -1,35 +1,34 @@
-{% extends 'vi/layout.html' %}
+{% extends "vi/layout.html" %}
 
 {% block title %}
-    Tra cứu {{ species }}
+    Tra cứu: {{ query }}
 {% endblock %}
-
 
 {% block main %}
     <section class="main-content">
-        <div class="header">
-            <h2>{{ species }}</h2>
-            <p>Tên khoa học: <i>{{ scientific_name }}</i></p>
-            <!-- tôi đang không biết cho taxonomy vào đâu -->
-        </div>
+        <h2>Kết quả tìm kiếm</h2>
 
-        <div class="photo">
-            <!-- chịu -->
-        </div>
+        {% if results %}
 
-        <div class="taxonomy">
-            <p>Vực: {{ taxonomic_domain }}</p>
-            <p>Giới: {{ taxonomic_kingdom }}</p>
-            <p>Ngành: {{ taxonomic_phylum }}</p>
-            <p>Lớp: {{ taxonomic_class }}</p>
-            <p>Bộ: {{ taxonomic_order }}</p>
-            <p>Họ: {{ taxonomic_family }}</p>
-            <p>Chi: {{ taxonomic_genus }}</p>
-        </div>
+            {% for creature in results %}
+                <div class="animals"> 
+                    {% for creature in results %}
 
-        <div class="quick_summary">
-            <p>{{ quick_summary }}</p>
-        </div>
+                    <div class="animals">
+                        <h3>
+                            <a href="{{ url_for('creature_info', creature_id=creature['id']) }}"> {{ creature["species"] }}</a>
+                        </h3>
+                        <p>{{ creature["scientific_name"] }}</p>
+                    </div>
 
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+        {% else %}
+
+            <p>Không tìm thấy sinh vật nào.</p>
+
+        {% endif %}
     </section>
 {% endblock %}
