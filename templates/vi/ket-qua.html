@@ -18,7 +18,17 @@
 
             <p>
                 Loại sinh vật:
-                <i>{{ creature["category"] }}</i>
+                <i>
+                    {% if creature["category"] == "animal" %}
+                        Động vật
+                    {% elif creature["category"] == "plant" %}
+                        Thực vật
+                    {% elif creature["category"] == "fungus" %}
+                        Nấm
+                    {% elif creature["category"] == "insects" %}
+                        Côn trùng
+                    {% endif %}
+                </i>
             </p>
         </div>
 
@@ -30,11 +40,7 @@
             />
 
             <p>
-                Tác giả: {{ creature["author"] }}
-                |
-                Nguồn: {{ creature["source"] }}
-                |
-                Giấy phép: {{ creature["license"] }}
+                Tác giả: {{ creature["author"] }} | Nguồn: {{ creature["source"] }} | Giấy phép: {{ creature["license"] }}
             </p>
         </div>
 

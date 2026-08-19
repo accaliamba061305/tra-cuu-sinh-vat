@@ -11,16 +11,33 @@
         <p>Trang này được dùng để cập nhật thông tin của một sinh vật hoặc sửa đổi thông tin khi có sai sót</p>
             <!-- I made this form just like the search bar in layout.html -->
             <h3>Nhập sinh vật bạn muốn cập nhật dữ liệu: </h3>
-            <form class="search-bar" action="{{ url_for('search') }}" method="GET">
+            <form class="search-bar" action="{{ url_for('cap_nhat_du_lieu') }}" method="GET">
 
                 <label class="visually-hidden" for="search">Tìm kiếm sinh vật</label>
 
-                <input id="search" name="search" type="search" placeholder="Nhập sinh vật bạn muốn tìm..." />
+                <input id="search" name="search" type="search" placeholder="Nhập sinh vật bạn muốn tìm..." required/>
 
                 <button type="submit">Tìm kiếm</button>
 
             </form> 
 
-            <!-- Some things some thing.... -->
+            {% if results %}
+                <h3>Kết quả tìm kiếm</h3>
+
+                {% for creature in results %}
+                    <a href="{{ url_for('sua_doi_du_lieu', creature_id=creature['id']) }}" class="animal-link">
+
+                        <div class="animals">
+                            <h4>{{ creature["species"] }}</h4>
+                            <p><i>{{ creature["scientific_name"] }}</i></p>
+                            <p>Sửa thông tin sinh vật →</p>
+                        </div>
+
+                    </a>
+
+                {% endfor %}
+            {% elif query %}
+                    <p>Không tìm thấy sinh vật nào</p>
+            {% endif %}
     </section>
 {% endblock %}

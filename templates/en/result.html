@@ -1,34 +1,54 @@
-{% extends 'vi/layout.html' %}
+{% extends 'en/layout2.html' %}
 
 {% block title %}
-    Result: {{ species }}
+    Result: {{ creature["species"] }}
 {% endblock %}
 
 
 {% block main %}
     <section class="main-content">
+
         <div class="header">
-            <h2>{{ species }}</h2>
-            <p>Scientific name: <i>{{ scientific_name }}</i></p>
+            <h2>{{ creature["species"] }}</h2>
+
+            <p>Scientific name: <i>{{ creature["scientific_name"] }}</i></p>
+
+            <p>Loại sinh vật: 
+                <i>
+                    {% if creature["category"] == "animal" %}
+                        Animal
+                    {% elif creature["category"] == "plant" %}
+                        Plant
+                    {% elif creature["category"] == "fungus" %}
+                        Fungus
+                    {% elif creature["category"] == "insects" %}
+                        Insects
+                    {% endif %}
+                </i>
+            </p>
         </div>
+
 
         <div class="photo">
-             <img src="{{ url_for('static', filename=image['photo']) }}" alt="{{ alt_text }}" />
-             <p> Author: {{ author }} | Source: {{ source }} | License: {{ license }}
+            <img src="{{ url_for('static', filename=creature['photo']) }}" alt="{{ creature['alt_text'] }}"/>
+
+            <p>Author: {{ creature["author"] }} | Source: {{ creature["source"] }} | License: {{ creature["license"] }}</p>
         </div>
+
 
         <div class="taxonomy">
-            <p>Domain: {{ taxonomic_domain }}</p>
-            <p>Kingdom: {{ taxonomic_kingdom }}</p>
-            <p>Phylum: {{ taxonomic_phylum }}</p>
-            <p>Class: {{ taxonomic_class }}</p>
-            <p>Order: {{ taxonomic_order }}</p>
-            <p>Family: {{ taxonomic_family }}</p>
-            <p>Genus: {{ taxonomic_genus }}</p>
+            <p>Domain: {{ creature["taxonomic_domain"] }}</p>
+            <p>Kingdom: {{ creature["taxonomic_kingdom"] }}</p>
+            <p>Phylum: {{ creature["taxonomic_phylum"] }}</p>
+            <p>Class: {{ creature["taxonomic_class"] }}</p>
+            <p>Order: {{ creature["taxonomic_order"] }}</p>
+            <p>Family: {{ creature["taxonomic_family"] }}</p>
+            <p>Genus: {{ creature["taxonomic_genus"] }}</p>
         </div>
 
+
         <div class="quick_summary">
-            <p>{{ quick_summary }}</p>
+            <p>{{ creature["quick_summary"] }}</p>
         </div>
 
     </section>

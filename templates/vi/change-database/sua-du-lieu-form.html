@@ -1,0 +1,118 @@
+{% extends 'vi/layout.html' %}
+
+{% block title %}
+    Sửa đổi dữ liệu sinh vật
+{% endblock %}
+
+
+{% block main %}
+    <section class="main-content">
+        <div class="header">
+            <h2>Trang sửa thông tin sinh vật</h2>
+            <p>Trang này dành riêng cho những người có thẩm quyền để sửa đổi thông tin của sinh vật nhằm cải thiện nội dung trang web</p>
+        </div>
+
+        <div class="content">
+            <h3>Thông tin sinh vật</h3>
+            
+            <form class="new-creature" method="POST" enctype="multipart/form-data" action="{{ url_for('sua_doi_du_lieu', creature_id=creature['id']) }}">
+                <h4>Thông tin chung (tiếng Việt)</h4>
+
+                <label for="species_vi">Tên sinh vật</label>
+                <input id="species_vi" name="species_vi" type="text" value="{{ translations_vi['species'] }}" required />
+                <br />
+
+                <label for="quick_summary_vi">Mô tả ngắn</label><br />
+                <textarea rows="6" cols="20" id="quick_summary_vi" name="quick_summary_vi" required>{{ translations_vi['quick_summary'] }}</textarea>
+                <br />
+
+                
+                <h4>Thông tin chung (LƯU Ý: GHI BẰNG TIẾNG ANH)</h4>
+                
+                <label for="species_en">Species' name: </label>
+                <input id="species_en" name="species_en" type="text" value="{{ translations_en['species'] }}" required />
+                <br />
+
+                <label for="quick_summary_en">Quick_summary: </label><br />
+                <textarea rows="6" cols="20" id="quick_summary_en" name="quick_summary_en" required>{{ translations_en['quick_summary'] }}</textarea>
+                <br />
+
+
+                <h4>Thông tin phân loại</h4>
+                <p>Vui lòng ghi tên khoa học tiếng Anh</p>
+
+                <label for="category">Loại sinh vật: </label>
+                <select id="category" name="category" required>
+                    <option value="animal" {% if creature['category'] == 'animal' %}selected{% endif %}>Động vật</option>
+                    <option value="plant" {% if creature['category'] == 'plant' %}selected{% endif %}>Thực vật</option>
+                    <option value="fungus" {% if creature['category'] == 'fungus' %}selected{% endif %}>Nấm</option>
+                    <option value="insects"{% if creature['category'] == 'insects' %}selected{% endif %}>Côn trùng</option>
+                </select>
+
+                <label for="era">Thời kì: </label>
+                <select id="era" name="era" required>
+                    <option value="modern" {% if creature['era'] == 'modern' %}selected{% endif %}>Hiện đại</option>
+                    <option value="ancient" {% if creature['era'] == 'ancient' %}selected{% endif %}>Cổ đại</option>
+                </select>
+
+                <label for="scientific_name">Tên khoa học: </label>
+                <input id="scientific_name" name="scientific_name" type="text" value="{{ creature['scientific_name'] }}" required />
+                <br />
+
+                <label for="taxonomic_domain">Vực: </label>
+                <input id="taxonomic_domain" name="taxonomic_domain" type="text" value="{{ creature['taxonomic_domain'] }}" required />
+                <br />
+
+                <label for="taxonomic_kingdom">Giới: </label>
+                <input id="taxonomic_kingdom" name="taxonomic_kingdom" type="text" value="{{ creature['taxonomic_kingdom'] }}" required />
+                <br />
+
+                <label for="taxonomic_phylum">Ngành: </label>
+                <input id="taxonomic_phylum" name="taxonomic_phylum" type="text" value="{{ creature['taxonomic_phylum'] }}" required />
+                <br />
+            
+                <label for="taxonomic_class">Lớp: </label>
+                <input id="taxonomic_class" name="taxonomic_class" type="text" value="{{ creature['taxonomic_class'] }}" required />
+                <br />
+
+                <label for="taxonomic_order">Bộ: </label>
+                <input id="taxonomic_order" name="taxonomic_order" type="text" value="{{ creature['taxonomic_order'] }}" required />
+                <br />
+
+                <label for="taxonomic_family">Họ: </label>
+                <input id="taxonomic_family" name="taxonomic_family" type="text" value="{{ creature['taxonomic_family'] }}" required />
+                <br />
+                
+                <label for="taxonomic_genus">Chi: </label>
+                <input id="taxonomic_genus" name="taxonomic_genus" type="text" value="{{ creature['taxonomic_genus'] }}" required />
+                <br />
+
+                <label for="upload-img">Thay ảnh nếu muốn (HIỆN CHƯA DÙNG ĐƯỢC): </label>
+                <input id="upload-img" type="file" name="upload-img" accept="image/*"/>
+
+                <h4>Bản quyền hình ảnh</h4>
+                <label for="author">Tác giả: </label>
+                <input id="author" name="author" type="text" value="{{ image['author'] }}" required />
+                <p>Lưu ý: Nếu không rõ tác giả hoặc ảnh miễn phí, vui lòng ghi N/a</p>
+
+                <label for="license">Giấy phép (ví dụ: CC BY 4.0): </label>
+                <input id="license" name="license" type="text" value="{{ image['license'] }}" required />
+                <p>Lưu ý: Nếu không rõ, vui lòng ghi N/A</p>
+
+                <label for="source">Nguồn: </label>
+                <input id="source" name="source" type="text" value="{{ image['source'] }}" required />
+                <p>Lưu ý: Nếu không rõ nguồn, vui lòng không sử dụng ảnh đó</p>
+
+                <label for="alt-text">Ghi chú cho ảnh (ví dụ: một con bò đang gặm cỏ): </label>
+                <input id="alt-text" name="alt_text" type="text" value="{{ image['alt_text'] }}" required />
+
+                <label for="alt-text-en">Ghi chú cho ảnh (LƯU Ý: BẰNG TIẾNG ANH)</label>
+                <input id="alt-text-en" name="alt_text_en" type="text" value="{{ image['alt_text_en'] }}" required /><br />
+
+                
+
+                <button type="submit">Cập nhật thông tin</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

@@ -43,6 +43,7 @@
 
                 <label for="category">Loại sinh vật: </label>
                 <select id="category" name="category" required>
+                    <option selected>Chọn loại sinh vật</option>
                     <option value="animal">Động vật</option>
                     <option value="plant">Thực vật</option>
                     <option value="fungus">Nấm</option>
@@ -93,10 +94,11 @@
                 <h4>Bản quyền hình ảnh</h4>
                 <label for="author">Tác giả: </label>
                 <input id="author" name="author" type="text" required />
+                <p>Lưu ý: Nếu không rõ tác giả hoặc ảnh miễn phí, vui lòng ghi N/a</p>
 
-                <label for="license">Giấy phép (ví dụ: CC BY 4.0): </label>
+                <label for="license">Giấy phép (ví dụ: CC BY 4.0): </label>A
                 <input id="license" name="license" type="text" required />
-                <p>Lưu ý: Nếu không rõ, vui lòng ghi "chưa xác minh"</p>
+                <p>Lưu ý: Nếu không rõ, vui lòng ghi N/A</p>
 
                 <label for="source">Nguồn: </label>
                 <input id="source" name="source" type="text" required />
@@ -106,9 +108,8 @@
                 <input id="alt-text" name="alt_text" type="text" required />
 
                 <label for="alt-text-en">Ghi chú cho ảnh (LƯU Ý: BẰNG TIẾNG ANH)</label>
-                <input id="alt-text-en" name="alt_text_en" type="text" required />
+                <input id="alt-text-en" name="alt_text_en" type="text" required /><br />
 
-                
 
                 <button type="submit">Thêm sinh vật</button>
             </form>

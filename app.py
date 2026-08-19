@@ -1,6 +1,6 @@
 import sqlite3
 import os
-from flask import Flask, render_template, request, g, redirect
+from flask import Flask, render_template, request, g, redirect, url_for
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -25,12 +25,12 @@ def close_connection(exception):
 # ==========================================
 
 # [x] Làm index
-# [ ] Làm thanh tìm kiếm
+# [x] Làm thanh tìm kiếm
 # [ ] Gợi ý các con vật khi mới vào trang
 
 # [x] Làm Giới thiệu
 # [x] Làm liên hệ
-# [ ] Làm chuyển đổi ngôn ngữ
+# [x] Làm chuyển đổi ngôn ngữ
 # [ ] Làm đầu mục sinh vật
 # [x] Làm thêm sinh vật
 # [ ] Làm sửa đổi sinh vật
@@ -71,8 +71,8 @@ def search():
         FROM creatures
         JOIN translations ON translations.creature_id = creatures.id
         WHERE translations.language = 'vi' 
-        AND translations.species LIKE ?
-    """, (f"%{query}%",)).fetchall()
+        AND (translations.species LIKE ? OR creatures.scientific_name LIKE ?)
+    """, (f"%{query}%", f"%{query}%")).fetchall()
 
     return render_template("vi/tra-cuu.html", results=rows, query=query)
 
@@ -89,8 +89,8 @@ def search_en():
         FROM creatures
         JOIN translations ON translations.creature_id = creatures.id
         WHERE translations.language = 'en' 
-        AND translations.species LIKE ?
-    """, (f"%{query}%",)).fetchall()
+        AND (translations.species LIKE ? OR creatures.scientific_name LIKE ?)
+    """, (f"%{query}%", f"%{query}%")).fetchall()
 
     return render_template("en/search.html", results=rows, query=query)
 
@@ -111,7 +111,7 @@ def creature_info(creature_id):
 
     return render_template("vi/ket-qua.html", creature=creature)
 
-@app.route("/en/sinh-vat/<int:creature_id>") # VIETNAMESE RESULT
+@app.route("/en/sinh-vat/<int:creature_id>") # ENGLISH RESULT
 def creature_info_en(creature_id):
     db = get_db()
 
@@ -148,7 +148,7 @@ def them_sinh_vat():
         if not species_en or not quick_summary_en:
             return xin_loi("Tên loài và tóm tắt nhanh bằng tiếng Anh là bắt buộc")
 
-        allowed_categories = {"animal", "plant", "fungus"}
+        allowed_categories = {"animal", "plant", "fungus", ""}
         allowed_era = {"modern", "ancient"}
         category = request.form.get("category")
         if category not in allowed_categories:
@@ -199,14 +199,151 @@ def them_sinh_vat():
     
     return render_template("vi/change-database/them-sinh-vat.html")
 
-@app.route("/sua-doi/cap-nhat", methods=["GET", "POST"])
+@app.route("/sua-doi/cap-nhat")
 def cap_nhat_du_lieu():
-    return xin_loi("Chưa xong đâu má")
+    query = request.args.get("search", "").strip()
+    if not query:
+        return render_template("vi/change-database/sua-du-lieu.html", results=[], query="")
 
-@app.route("/sua-doi/xoa", methods=["GET", "POST"])
+    db = get_db()
+    rows = db.execute("""
+        SELECT creatures.id, translations.species, creatures.scientific_name
+        FROM creatures
+        JOIN translations ON translations.creature_id = creatures.id
+        WHERE translations.language = 'vi' 
+        AND (translations.species LIKE ? OR creatures.scientific_name LIKE ?)
+    """, (f"%{query}%", f"%{query}%")).fetchall()
+
+    return render_template("vi/change-database/sua-du-lieu.html", query=query, results=rows)
+
+@app.route("/sua-doi/cap-nhat/<int:creature_id>", methods=["GET", "POST"])
+def sua_doi_du_lieu(creature_id):
+    if request.method == "GET":
+        db = get_db()
+        creature = db.execute("SELECT * FROM creatures WHERE id = ? ", (creature_id, )).fetchone()
+        translations_vi = db.execute("SELECT * FROM translations WHERE creature_id = ? AND language = 'vi'", (creature_id, )).fetchone()
+        translations_en = db.execute("SELECT * FROM translations WHERE creature_id = ? AND language = 'en'", (creature_id, )).fetchone()
+        images = db.execute("SELECT * FROM images WHERE creature_id = ?", (creature_id, )).fetchone()
+
+        if not creature or not translations_vi or not translations_en or not images:
+            return xin_loi("Không tìm thấy sinh vật")
+        return render_template("vi/change-database/sua-du-lieu-form.html", creature=creature, translations_vi=translations_vi, translations_en=translations_en, image=images)
+
+    if request.method == "POST":
+        species_vi = request.form.get("species_vi")
+        quick_summary_vi = request.form.get("quick_summary_vi")
+
+        species_en = request.form.get("species_en")
+        quick_summary_en = request.form.get("quick_summary_en")
+
+        category = request.form.get("category")
+        era = request.form.get("era")
+
+        scientific_name = request.form.get("scientific_name")
+        taxonomic_domain = request.form.get("taxonomic_domain")
+        taxonomic_kingdom = request.form.get("taxonomic_kingdom")
+        taxonomic_phylum = request.form.get("taxonomic_phylum")
+        taxonomic_class = request.form.get("taxonomic_class")
+        taxonomic_order = request.form.get("taxonomic_order")
+        taxonomic_family = request.form.get("taxonomic_family")
+        taxonomic_genus = request.form.get("taxonomic_genus")
+
+        author = request.form.get("author")
+        license = request.form.get("license")
+        source = request.form.get("source")
+        alt_text = request.form.get("alt_text")
+        alt_text_en = request.form.get("alt_text_en")
+
+        db = get_db()
+        db.execute("""UPDATE creatures
+                        SET category = ?,
+                        era = ?,
+                        scientific_name = ?,
+                        taxonomic_domain = ?,
+                        taxonomic_kingdom = ?,
+                        taxonomic_phylum = ?,
+                        taxonomic_class = ?,
+                        taxonomic_order = ?,
+                        taxonomic_family = ?,
+                        taxonomic_genus = ?
+                        WHERE id = ? """,
+                        (
+                            category, 
+                            era, 
+                            scientific_name, 
+                            taxonomic_domain, 
+                            taxonomic_kingdom, 
+                            taxonomic_phylum, 
+                            taxonomic_class, 
+                            taxonomic_order, 
+                            taxonomic_family, 
+                            taxonomic_genus,
+                            creature_id
+                        ))
+        db.execute("""UPDATE translations
+                        SET species = ?,
+                        quick_summary = ?
+                        WHERE creature_id = ?
+                        AND language = 'vi'""", 
+                        (
+                            species_vi, quick_summary_vi, creature_id
+                        )) #VIETNAMESE
+        db.execute("""UPDATE translations
+                        SET species = ?,
+                        quick_summary = ?
+                        WHERE creature_id = ?
+                        AND language = 'en'""", 
+                        (
+                            species_en, quick_summary_en, creature_id
+                        )) #ENGLISH
+        db.execute("""UPDATE images
+                        SET author = ?,
+                        license = ?,
+                        source = ?,
+                        alt_text = ?,
+                        alt_text_en = ?
+                        WHERE creature_id = ?""", 
+                        (
+                            author,
+                            license,
+                            source,
+                            alt_text,
+                            alt_text_en,
+                            creature_id
+                        ))
+        db.commit()
+
+        return redirect(url_for("index"))
+
+@app.route("/sua-doi/xoa", methods=["GET"])
 def xoa_du_lieu():
-    return xin_loi("Chưa xong đâu má")
-    
+    if request.method == "GET":
+        query = request.args.get("search", "").strip()
+        if not query:
+            return render_template("vi/change-database/xoa-du-lieu.html", results=[], query="")
+
+        db = get_db()
+        rows = db.execute("""
+            SELECT creatures.id, translations.species, creatures.scientific_name
+            FROM creatures
+            JOIN translations ON translations.creature_id = creatures.id
+            WHERE translations.language = 'vi' 
+            AND (translations.species LIKE ? OR creatures.scientific_name LIKE ?)
+        """, (f"%{query}%", f"%{query}%")).fetchall()
+
+        return render_template("vi/change-database/xoa-du-lieu.html", query=query, results=rows)
+@app.route("/sua-doi/xoa/<int:creature_id>", methods=[])
+def xoa_sinh_vat(creature_id):
+    creature_id = request.form.get("creature_id")
+    db = get_db()
+
+    db.execute("DELETE FROM images WHERE creature_id = ?", (creature_id, ))
+    db.execute("DELETE FROM translations WHERE creature_id = ?", (creature_id, ))
+    db.execute("DELETE FROM creatures WHERE creature_id = ?", (creature_id, ))
+
+    db.commit()
+    return redirect("/")
+
 ###############################################
 #                                             #
 #                English version              #

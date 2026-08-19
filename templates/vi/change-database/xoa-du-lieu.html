@@ -5,7 +5,7 @@
 {% endblock %}
 
 
-{% block main %}vật
+{% block main %}
     <section class="main-content">
         <h2>Trang xóa dữ liệu sinh vật</h2>
         <p>Trang này được sử dụng để xóa dữ liệu của một sinh vật khi có sai sót nghiêm trọng hoặc thông tin của sinh vật đó hoặc chính sinh vật đó không hề tồn tại</p>
@@ -21,6 +21,25 @@
 
         </form> 
 
-        <!-- Something something...-->
+            {% if results %}
+                <h3>Kết quả tìm kiếm</h3>
+
+                {% for creature in results %}
+
+                    <div class="animals">
+                        <h4>{{ creature["species"] }}</h4>
+                        <p><i>{{ creature["scientific_name"] }}</i></p>
+
+                        <form method="POST"
+                            action="{{ url_for('xoa_sinh_vat', creature_id=creature['id']) }}">
+                            <button type="submit">Xóa sinh vật</button>
+                        </form>
+                    </div>
+
+
+                {% endfor %}
+            {% elif query %}
+                    <p>Không tìm thấy sinh vật nào</p>
+            {% endif %}
     </section>
 {% endblock %}
