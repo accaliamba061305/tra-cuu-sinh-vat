@@ -1,24 +1,49 @@
 {% extends 'vi/layout.html' %}
 
 {% block title %}
-    {{ category_name }}
+    Danh mục sinh vật
 {% endblock %}
 
-
 {% block main %}
-    <section class="main-content">
-        <h2>{{ category_name }}</h2>
 
-    <select name="era">
-        <option value="modern">Hiện đại</option>
-        <option value="ancient">Cổ đại</option>
-    </select>
+<section class="main-content">
+
+    {% if category == "animal" %}
+        <h2>Động vật</h2>
+
+    {% elif category == "plant" %}
+        <h2>Thực vật</h2>
+
+    {% elif category == "fungus" %}
+        <h2>Nấm</h2>
+
+    {% elif category == "insects" %}
+        <h2>Côn trùng</h2>
+    {% endif %}
+
 
     {% for creature in creatures %}
-        <div class="creature">
-            <h3>{{ creature["species"] }}</h3>
-            <p>{{ creature["quick_summary"] }}</p>
-        </div>
+
+        <a href="{{ url_for('creature_info', creature_id=creature['id']) }}" class="animal-link">
+
+            <div class="animals">
+
+                <img src="{{ url_for('static', filename=creature['photo']) }}" alt="{{ creature['alt_text'] }}" />
+
+                <h3>{{ creature['species'] }}</h3>
+
+                <p><i>{{ creature['scientific_name'] }}</i></p>
+
+            </div>
+
+        </a>
+
+    {% else %}
+
+        <p>Danh mục này hiện chưa có sinh vật nào.</p>
+
     {% endfor %}
-        </section>
+
+</section>
+
 {% endblock %}

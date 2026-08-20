@@ -1,26 +1,49 @@
 {% extends 'en/layout2.html' %}
 
 {% block title %}
-    {{ category_name }}
+    Danh mục sinh vật
 {% endblock %}
 
 {% block main %}
-    <section class="main-content">
-    <section class="main-content">
-        <h2>{{ category_name }}</h2>
 
-    <select name="era">
-        <option value="modern">Modern</option>
-        <option value="ancient">Ancient</option>
-    </select>
+<section class="main-content">
+
+    {% if category == "animal" %}
+        <h2>Animals</h2>
+
+    {% elif category == "plant" %}
+        <h2>Plants</h2>
+
+    {% elif category == "fungus" %}
+        <h2>Fungi</h2>
+
+    {% elif category == "insects" %}
+        <h2>Insects</h2>
+    {% endif %}
+
 
     {% for creature in creatures %}
-        <div class="creature">
-            <h3>{{ creature["species"] }}</h3>
-            <p>{{ creature["quick_summary"] }}</p>
-        </div>
+
+        <a href="{{ url_for('creature_info', creature_id=creature['id']) }}" class="animal-link">
+
+            <div class="animals">
+
+                <img src="{{ url_for('static', filename=creature['photo']) }}" alt="{{ creature['alt_text_en'] }}" />
+
+                <h3>{{ creature['species'] }}</h3>
+
+                <p><i>{{ creature['scientific_name'] }}</i></p>
+
+            </div>
+
+        </a>
+
+    {% else %}
+
+        <p>This category currently has no creatures yet.</p>
+
     {% endfor %}
-        </section>
-    </section>
+
+</section>
 
 {% endblock %}

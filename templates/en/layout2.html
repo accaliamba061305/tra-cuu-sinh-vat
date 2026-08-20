@@ -80,10 +80,10 @@
                 <h2>Creature Categories</h2>
                 <nav>
                   <ul>
-                    <li><a href="#">Animals</a></li>
-                    <li><a href="#">Plants</a></li>
-                    <li><a href="#">Fungi</a></li>
-                    <li><a href="#">Insects</a></li>
+                    <li><a href="{{ url_for('creature_category_en', category='animal') }}">Animals</a></li>
+                    <li><a href="{{ url_for('creature_category_en', category='plant') }}">Plants</a></li>
+                    <li><a href="{{ url_for('creature_category_en', category='fungus') }}">Fungi</a></li>
+                    <li><a href="{{ url_for('creature_category_en', category='insects') }}">Insects</a></li>
                   </ul>
                 </nav>
             </aside>

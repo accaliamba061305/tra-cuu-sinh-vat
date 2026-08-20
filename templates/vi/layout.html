@@ -80,10 +80,10 @@
                 <h2>Các đầu mục sinh vật</h2>
                 <nav>
                   <ul>
-                    <li><a href="#">Động vật</a></li>
-                    <li><a href="#">Thực vật</a></li>
-                    <li><a href="#">Nấm</a></li>
-                    <li><a href="#">Côn trùng</a></li>
+                    <li><a href="{{ url_for('creature_category', category='animal') }}">Động vật</a></li>
+                    <li><a href="{{ url_for('creature_category', category='plant') }}">Thực vật</a></li>
+                    <li><a href="{{ url_for('creature_category', category='fungus') }}">Nấm</a></li>
+                    <li><a href="{{ url_for('creature_category', category='insects') }}">Côn trùng</a></li>
                   </ul>
                 </nav>
             </aside>

@@ -26,16 +26,16 @@ def close_connection(exception):
 
 # [x] Làm index
 # [x] Làm thanh tìm kiếm
-# [ ] Gợi ý các con vật khi mới vào trang
+# [x] Gợi ý các con vật khi mới vào trang
 
 # [x] Làm Giới thiệu
 # [x] Làm liên hệ
 # [x] Làm chuyển đổi ngôn ngữ
 # [ ] Làm đầu mục sinh vật
 # [x] Làm thêm sinh vật
-# [ ] Làm sửa đổi sinh vật
-# [ ] Làm sửa đổi thông tin sinh vật
-# [ ] Làm xóa thông tin sinh vật
+# [x] Làm sửa đổi sinh vật
+# [x] Làm sửa đổi thông tin sinh vật
+# [x] Làm xóa thông tin sinh vật
 
 # apology if user is too dumb to type the word in correctly
 def xin_loi(message):
@@ -46,7 +46,39 @@ def apology(message):
 # Home
 @app.route("/")
 def index():
-    return render_template("vi/index.html", language="vi")
+    db = get_db()
+
+    creatures = db.execute("""SELECT creatures.id, translations.species, creatures.scientific_name, images.photo, images.alt_text
+                                FROM creatures
+                                JOIN translations ON translations.creature_id = creatures.id
+                                JOIN images ON images.creature_id = creatures.id
+                                WHERE translations.language = 'vi'
+                                ORDER BY RANDOM() LIMIT 10""").fetchall()
+
+    return render_template("vi/index.html", creatures=creatures)
+
+# Đầu mục sinh vật
+@app.route("/sinh-vat/<category>")
+def creature_category(category):
+    allowed_categories = {
+        "animal",
+        "plant",
+        "fungus",
+        "insects"
+    }
+
+    if category not in allowed_categories:
+        return xin_loi("Không có đầu mục sinh vật đó")
+
+    db = get_db()
+    creatures = db.execute("""SELECT creatures.id, translations.species, creatures.scientific_name, images.photo, images.alt_text
+                                FROM creatures
+                                JOIN translations ON translations.creature_id = creatures.id
+                                JOIN images ON images.creature_id = creatures.id
+                                WHERE creatures.category = ? AND translations.language = 'vi'
+                                ORDER BY translations.species""", (category,)).fetchall()
+
+    return render_template("vi/sinh-vat.html", creatures=creatures, category=category)
 
 # About me (or yeah, the website)!
 @app.route("/gioi-thieu")
@@ -92,7 +124,7 @@ def search_en():
         AND (translations.species LIKE ? OR creatures.scientific_name LIKE ?)
     """, (f"%{query}%", f"%{query}%")).fetchall()
 
-    return render_template("en/search.html", results=rows, query=query)
+    return render_template("en/search.html", results=rows, query=query, language="en")
 
 @app.route("/sinh-vat/<int:creature_id>") # VIETNAMESE RESULT
 def creature_info(creature_id):
@@ -126,7 +158,7 @@ def creature_info_en(creature_id):
     if not creature:
         return apology("Creature not found.")
 
-    return render_template("en/result.html", creature=creature)
+    return render_template("en/result.html", creature=creature, language="en")
 
 # Build this one as well
 # Change the database !!!!!!!!
@@ -188,7 +220,7 @@ def them_sinh_vat():
         image = request.files.get("upload-img")
         filename = secure_filename(image.filename)
         image_path = os.path.join("images", "creatures", filename)
-        image.save(image_path)
+        image.save(os.path.join("static", image_path))
 
         db.execute("INSERT INTO images (creature_id, photo, author, license, source, alt_text, alt_text_en) VALUES (?, ?, ?, ?, ?, ?, ?)",
                    (creature_id, image_path, author, license, source, alt_text, alt_text_en))
@@ -332,14 +364,16 @@ def xoa_du_lieu():
         """, (f"%{query}%", f"%{query}%")).fetchall()
 
         return render_template("vi/change-database/xoa-du-lieu.html", query=query, results=rows)
-@app.route("/sua-doi/xoa/<int:creature_id>", methods=[])
+
+# AI helped me debugging this frustrating function.
+@app.route("/sua-doi/xoa/<int:creature_id>", methods=["POST"])
 def xoa_sinh_vat(creature_id):
-    creature_id = request.form.get("creature_id")
+    print("Deleting creature:", creature_id)
     db = get_db()
 
     db.execute("DELETE FROM images WHERE creature_id = ?", (creature_id, ))
     db.execute("DELETE FROM translations WHERE creature_id = ?", (creature_id, ))
-    db.execute("DELETE FROM creatures WHERE creature_id = ?", (creature_id, ))
+    db.execute("DELETE FROM creatures WHERE id = ?", (creature_id, ))
 
     db.commit()
     return redirect("/")
@@ -351,15 +385,47 @@ def xoa_sinh_vat(creature_id):
 ###############################################
 @app.route("/en")
 def index_en():
-    return render_template("en/index-en.html", language="en")
+    db = get_db()
+
+    creatures = db.execute("""SELECT creatures.id, translations.species, creatures.scientific_name, images.photo, images.alt_text
+                                FROM creatures
+                                JOIN translations ON translations.creature_id = creatures.id
+                                JOIN images ON images.creature_id = creatures.id
+                                WHERE translations.language = 'en'
+                                ORDER BY RANDOM() LIMIT 10""").fetchall()
+
+    return render_template("en/index-en.html", creatures=creatures, language="en")
+
+# Đầu mục sinh vật
+@app.route("/en/creature/<category>")
+def creature_category_en(category):
+    allowed_categories = {
+        "animal",
+        "plant",
+        "fungus",
+        "insects"
+    }
+
+    if category not in allowed_categories:
+        return apology("Category not found.", language="en")
+
+    db = get_db()
+    creatures = db.execute("""SELECT creatures.id, translations.species, creatures.scientific_name, images.photo, images.alt_text_en
+                                FROM creatures
+                                JOIN translations ON translations.creature_id = creatures.id
+                                JOIN images ON images.creature_id = creatures.id
+                                WHERE creatures.category = ? AND translations.language = 'en'
+                                ORDER BY translations.species""", (category,)).fetchall()
+
+    return render_template("en/creature.html", creatures=creatures, category=category, language="en")
 
 @app.route("/en/about")
 def about():
-    return render_template("en/about.html")
+    return render_template("en/about.html", language="en")
 
 @app.route("/en/contact")
 def contact():
-    return render_template("en/contact.html")
+    return render_template("en/contact.html", language="en")
 
 
 # Something else, just for fun.
@@ -370,4 +436,4 @@ def troll():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
