@@ -3,6 +3,7 @@
     --font-main: Arial, "Roboto", "Open Sans", "Montserrat", "Poppins", "Lora", sans-serif;
     --text-color: #222222;
     --background-color: #D3D3D3;
+    --template-background-color: #f8fafc;
 }
 
 * {
@@ -284,22 +285,6 @@ footer p {
 }
 
 
-.animals img {
-    max-width: 100%;
-    height: auto;
-    height: 220px;
-    object-fit: contain;
-}
-
-.animals {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 15px 0;
-    background-color: white;
-}
-
-
 /* PHẦN HIỂN THỊ CHI TIẾT SINH VẬT */
 
 .main-content {
@@ -340,4 +325,213 @@ footer p {
     height: auto;
     margin: 0 auto 0.5rem;
     object-fit: contain;
+}
+
+/* Try to add some properties to pages beside layout so that they can be better */
+.content {
+    line-height: 1,3rem;
+}
+
+.animals img {
+    max-width: 100%;
+    height: 200px;
+    object-fit: contain;
+}
+
+.animals {
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    background-color: #f8fafc;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.animals:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+}
+
+.animals a {
+    border: 1px solid var(--primary-color);
+    padding: 5px;
+    border-radius: 8px;
+    margin-top: 2rem;
+    background-color: var(--primary-color);
+    color: white;
+    transition: box-shadow 0.3s ease;
+}
+
+.animals a:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+    background-color: var(--template-background-color); 
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.search-result:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+}
+
+.search-result img {
+    height: 140px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.search-result .search-result-info {
+    flex: 1;
+    margin-left: 2rem;
+}
+
+.search-result-info h3 {
+    margin-bottom: 0.3rem;
+}
+
+.search-result-info p {
+    margin-bottom: 1rem;
+}
+
+.search-result-info a {
+    border: 1px solid var(--primary-color);
+    padding: 5px;
+    border-radius: 8px;
+    margin-top: 2rem;
+    background-color: var(--primary-color);
+    color: white;
+    transition: box-shadow 0.3s ease;
+}
+
+.search-result-info a:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+/* RESPONSIVE DESGIN FOR PHOTOS AND TAXONOMY FAMILY TREE */
+@media (max-width: 600px) {
+    .search-result img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .taxonomy {
+        grid-template-columns: 1fr;
+    }
+}
+
+.header-species,
+.photo,
+.taxonomy,
+.quick_summary {
+    background-color: var(--template-background-color);
+    margin-bottom: 30px;
+    padding: 8px;
+    border: 1px solid var(--template-background-color);
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+}
+
+.header-species:hover,
+.photo:hover,
+.taxonomy:hover,
+.quick_summary:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* CHI TIẾT CỦA PHẦN HEADER CHO ĐẸP */
+.header-species h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.header-species p {
+    margin-bottom: 0.4rem;
+    color: #555;
+}
+
+.header-species i {
+    color: #333;
+}
+
+/* Phần photo */
+
+.photo p {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+/* Phần tóm tắt ngắn */
+.quick_summary {
+    line-height: 1.7;
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    text-align: justify;
+    max-width: 75ch;
+    color: #333;
+}
+
+.quick_summary p {
+    text-indent: 2em;
+}
+
+
+/* Phần taxonomy */
+.taxonomy {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 20px;
+}
+
+
+.taxonomy p {
+    margin: 0;
+    padding: 8px 10px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.taxonomy strong {
+    color: var(--primary-color);
+}
+
+/* Some effect for the h3s */
+
+.quick_summary h3,
+.taxonomy h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.quick_summary h3::after,
+.taxonomy h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+
+/* AI helped me with this */
+.taxonomy h3 {
+    grid-column: 1 / -1;
+}
+
+
+#password {
+    border: 2px solid var(--text-color)
 }

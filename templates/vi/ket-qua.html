@@ -8,7 +8,7 @@
 {% block main %}
     <section class="main-content">
 
-        <div class="header">
+        <div class="header-species">
             <h2>{{ creature["species"] }}</h2>
 
             <p>
@@ -46,17 +46,20 @@
 
 
         <div class="taxonomy">
-            <p>Vực: {{ creature["taxonomic_domain"] }}</p>
-            <p>Giới: {{ creature["taxonomic_kingdom"] }}</p>
-            <p>Ngành: {{ creature["taxonomic_phylum"] }}</p>
-            <p>Lớp: {{ creature["taxonomic_class"] }}</p>
-            <p>Bộ: {{ creature["taxonomic_order"] }}</p>
-            <p>Họ: {{ creature["taxonomic_family"] }}</p>
-            <p>Chi: {{ creature["taxonomic_genus"] }}</p>
+            <h3>Phân loại khoa học</h3>
+
+            <p><strong>Vực:</strong> {{ creature["taxonomic_domain"] }}</p>
+            <p><strong>Giới:</strong> {{ creature["taxonomic_kingdom"] }}</p>
+            <p><strong>Ngành:</strong> {{ creature["taxonomic_phylum"] }}</p>
+            <p><strong>Lớp:</strong> {{ creature["taxonomic_class"] }}</p>
+            <p><strong>Bộ:</strong> {{ creature["taxonomic_order"] }}</p>
+            <p><strong>Họ:</strong> {{ creature["taxonomic_family"] }}</p>
+            <p><strong>Chi:</strong> {{ creature["taxonomic_genus"] }}</p>
         </div>
 
 
         <div class="quick_summary">
+            <h3>Mô tả</h3>
             <p>{{ creature["quick_summary"] }}</p>
         </div>
 

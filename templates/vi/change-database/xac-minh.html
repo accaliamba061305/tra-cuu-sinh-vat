@@ -1,0 +1,20 @@
+{% extends 'vi/layout.html' %}
+
+{% block title %}
+    Liên hệ
+{% endblock %}
+
+
+{% block main %}
+    <section class="main-content">
+        <h2>Trang thêm sinh vật</h2>
+        <p>Lưu ý: trang này chỉ dành cho các thành viên quản trị. Nếu không có phận sự, vui lòng không phá hoại.</p>
+        
+        <form method="post">
+            <label for="password">Mật khẩu quản trị</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Xác minh</button>
+        </form>
+    </section>
+{% endblock %}

@@ -28,5 +28,9 @@
                 <button>Xóa dữ liệu của sinh vật</button>
             </a>
         </div>
+
+        <form action="{{ url_for('dang_xuat') }}" method="POST">
+            <button type="submit">Đăng xuất</button>
+        </form>
     </section>
 {% endblock %}

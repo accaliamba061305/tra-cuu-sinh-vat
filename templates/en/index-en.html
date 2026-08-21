@@ -13,7 +13,7 @@
                 <h3>{{ creature["species"] }}</h3>
                 <p><i>{{ creature["scientific_name"] }}</i></p>
                 <img src="{{ url_for('static', filename=creature['photo']) }}" alt="{{ creature['alt_text_en'] }}" /><br />
-                <a href="{{ url_for('creature_info_en', creature_id=creature['id']) }}">Learn more</a>
+                <a href="{{ url_for('creature_info_en', creature_id=creature['id']) }}">Learn more ←</a>
             </div>
         {% endfor %}
     </section>

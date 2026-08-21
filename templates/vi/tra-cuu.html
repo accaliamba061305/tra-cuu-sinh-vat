@@ -8,20 +8,17 @@
     <section class="main-content">
         <h2>Kết quả tìm kiếm</h2>
 
+
         {% if results %}
 
             {% for creature in results %}
-                <div class="animals"> 
-                    {% for creature in results %}
-
-                    <div class="animals">
-                        <h3>
-                            <a href="{{ url_for('creature_info', creature_id=creature['id']) }}"> {{ creature["species"] }}</a>
-                        </h3>
-                        <p>{{ creature["scientific_name"] }}</p>
+                <div class="search-result">
+                    <img src="{{ url_for('static', filename=creature['photo']) }}" alt="{{ creature['alt_text'] }}" />
+                    <div class="search-result-info">
+                        <h3>{{ creature["species"] }}</h3>
+                        <p><i>{{ creature["scientific_name"] }}</i></p>
+                        <a href="{{ url_for('creature_info', creature_id=creature['id']) }}">Xem thông tin</a>
                     </div>
-
-                    {% endfor %}
                 </div>
             {% endfor %}
 

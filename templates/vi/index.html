@@ -13,7 +13,7 @@
                 <h3>{{ creature["species"] }}</h3>
                 <p><i>{{ creature["scientific_name"] }}</i></p>
                 <img src="{{ url_for('static', filename=creature['photo']) }}" alt="{{ creature['alt_text'] }}" /><br />
-                <a href="{{ url_for('creature_info', creature_id=creature['id']) }}">Xem thông tin</a>
+                <a href="{{ url_for('creature_info', creature_id=creature['id']) }}">Xem thông tin ←</a>
             </div>
         {% endfor %}
     </section>

@@ -1,9 +1,12 @@
 import sqlite3
 import os
-from flask import Flask, render_template, request, g, redirect, url_for
+from dotenv import load_dotenv
+from flask import Flask, render_template, request, g, redirect, url_for, session
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY")
+load_dotenv()
 
 # CS50 db.execute. But remember to add .fetchone or .fetchall!
 def get_db():
@@ -31,11 +34,13 @@ def close_connection(exception):
 # [x] Làm Giới thiệu
 # [x] Làm liên hệ
 # [x] Làm chuyển đổi ngôn ngữ
-# [ ] Làm đầu mục sinh vật
+# [x] Làm đầu mục sinh vật
 # [x] Làm thêm sinh vật
 # [x] Làm sửa đổi sinh vật
 # [x] Làm sửa đổi thông tin sinh vật
 # [x] Làm xóa thông tin sinh vật
+
+#BONUS: SECURITY.
 
 # apology if user is too dumb to type the word in correctly
 def xin_loi(message):
@@ -99,9 +104,10 @@ def search():
 
     db = get_db()
     rows = db.execute("""
-        SELECT creatures.id, translations.species, creatures.scientific_name
+        SELECT creatures.id, translations.species, creatures.scientific_name, images.photo, images.alt_text
         FROM creatures
         JOIN translations ON translations.creature_id = creatures.id
+        JOIN images ON images.creature_id = creatures.id
         WHERE translations.language = 'vi' 
         AND (translations.species LIKE ? OR creatures.scientific_name LIKE ?)
     """, (f"%{query}%", f"%{query}%")).fetchall()
@@ -117,9 +123,10 @@ def search_en():
 
     db = get_db()
     rows = db.execute("""
-        SELECT creatures.id, translations.species, creatures.scientific_name
+        SELECT creatures.id, translations.species, creatures.scientific_name, images.photo, images.alt_text_en
         FROM creatures
         JOIN translations ON translations.creature_id = creatures.id
+        JOIN images ON images.creature_id = creatures.id
         WHERE translations.language = 'en' 
         AND (translations.species LIKE ? OR creatures.scientific_name LIKE ?)
     """, (f"%{query}%", f"%{query}%")).fetchall()
@@ -162,12 +169,33 @@ def creature_info_en(creature_id):
 
 # Build this one as well
 # Change the database !!!!!!!!
+
+@app.route("/xac-minh", methods=["GET", "POST"])
+def xac_minh():
+    if request.method == "POST":
+        password = request.form.get("password", "")
+
+        if password == os.environ.get("ADMIN_PASSWORD"):
+            session["authenticated"] = True
+            return redirect(url_for("sua_doi"))
+
+        return xin_loi("Mật khẩu không chính xác. Ngươi sẽ không vào được đâu MUAHAHAHAHAHAHAHAHA =)")
+
+    return render_template("vi/change-database/xac-minh.html")
+
+
 @app.route("/sua-doi")
 def sua_doi():
-    return render_template("vi/change-database/sua-doi.html") #done
+    if not session.get("authenticated"):
+        return redirect(url_for("xac_minh"))
+    
+    return render_template("vi/change-database/sua-doi.html")
 
 @app.route("/sua-doi/them-sinh-vat", methods=["GET", "POST"])
 def them_sinh_vat():
+    if not session.get("authenticated"):
+        return redirect(url_for("xac_minh"))
+
     if request.method == "POST":
         species_vi = request.form.get("species_vi")
         quick_summary_vi = request.form.get("quick_summary_vi")
@@ -233,6 +261,10 @@ def them_sinh_vat():
 
 @app.route("/sua-doi/cap-nhat")
 def cap_nhat_du_lieu():
+    if not session.get("authenticated"):
+        return redirect(url_for("xac_minh"))
+
+    
     query = request.args.get("search", "").strip()
     if not query:
         return render_template("vi/change-database/sua-du-lieu.html", results=[], query="")
@@ -250,6 +282,9 @@ def cap_nhat_du_lieu():
 
 @app.route("/sua-doi/cap-nhat/<int:creature_id>", methods=["GET", "POST"])
 def sua_doi_du_lieu(creature_id):
+    if not session.get("authenticated"):
+        return redirect(url_for("xac_minh"))
+
     if request.method == "GET":
         db = get_db()
         creature = db.execute("SELECT * FROM creatures WHERE id = ? ", (creature_id, )).fetchone()
@@ -345,10 +380,13 @@ def sua_doi_du_lieu(creature_id):
                         ))
         db.commit()
 
-        return redirect(url_for("index"))
+        return redirect("/sua-doi")
 
 @app.route("/sua-doi/xoa", methods=["GET"])
 def xoa_du_lieu():
+    if not session.get("authenticated"):
+        return redirect(url_for("xac_minh"))
+
     if request.method == "GET":
         query = request.args.get("search", "").strip()
         if not query:
@@ -368,6 +406,9 @@ def xoa_du_lieu():
 # AI helped me debugging this frustrating function.
 @app.route("/sua-doi/xoa/<int:creature_id>", methods=["POST"])
 def xoa_sinh_vat(creature_id):
+    if not session.get("authenticated"):
+        return redirect(url_for("xac_minh"))
+
     print("Deleting creature:", creature_id)
     db = get_db()
 
@@ -376,7 +417,13 @@ def xoa_sinh_vat(creature_id):
     db.execute("DELETE FROM creatures WHERE id = ?", (creature_id, ))
 
     db.commit()
-    return redirect("/")
+    return redirect("/sua-doi")
+
+@app.route("/dang-xuat", methods=["POST"]) #so that user can log out for security
+def dang_xuat():
+    session.pop("authenticated", None)
+    return redirect(url_for("index"))
+
 
 ###############################################
 #                                             #
