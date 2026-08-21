@@ -286,6 +286,7 @@ footer p {
 
 .animals img {
     max-width: 100%;
+    height: auto;
     height: 220px;
     object-fit: contain;
 }
