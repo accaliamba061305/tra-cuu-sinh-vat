@@ -45,7 +45,19 @@ Lists the Python dependencies required by the application.
 Contains initial notes and ideas
 
 ## How it works
-The website uses separate templates for Vietnamese and English pages. Flask and Jinja templates are used to render the appropriate page and database content for each language. animals.db is where the data is stored.
+The website uses separate templates for Vietnamese and English pages. Flask and Jinja templates are used to render the appropriate page and database content for each language.
+
+When a user visits the website, Flask handles the request and determines which page should be displayed. The corresponding Jinja template is then rendered and inserted with information retrieved from the SQLite database.
+
+The creature data is stored in animals.db. Each creature can have information such as its Vietnamese name, English name, scientific name, taxonomy, description, and related image information. The application uses this database to search for creatures and display their information on the appropriate page.
+
+The search bar allows users to enter the name (or the scientific one) of a creature and look for matching records in the database. If a supported creature is found, the website displays its available information. If there is no matching creature, the website informs the user that the creature could not be found.one
+
+The website also contains a separate database-management area. This area is protected by password authentication and allows authorized users to add new creatures, edit existing information, or delete records from the database.
+
+For the bilingual interface, the same underlying database is used for both languages. The Vietnamese and English templates determine how the available information is presented to the user.
+
+The frontend is built with HTML and CSS, with a small amount of JavaScript for client-side functionality. Flask connects the frontend to the database and handles the application's server-side logic.
 
 ## Authentication
 The database-management functionality is protected by password authentication.
