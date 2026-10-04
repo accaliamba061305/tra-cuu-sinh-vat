@@ -9,12 +9,9 @@
         <h2>Search results</h2>
 
         {% if results %}
-
-        {% if results %}
-
             {% for creature in results %}
                 <div class="search-result">
-                    <img src="{{ url_for('static', filename=creature['photo']) }}" alt="{{ creature['alt_textmore_en'] }}" />
+                    <img src="{{ url_for('static', filename=creature['photo']) }}" alt="{{ creature['alt_text_en'] }}" />
                     <div class="search-result-info">
                         <h3>{{ creature["species"] }}</h3>
                         <p><i>{{ creature["scientific_name"] }}</i></p>
@@ -22,11 +19,9 @@
                     </div>
                 </div>
             {% endfor %}
-
         {% else %}
-
             <p>No creatures found.</p>
-
         {% endif %}
+
     </section>
 {% endblock %}
